@@ -2,6 +2,10 @@
 
 An api sdk for v2 of constant contact api, using python 3.1+
 
+## Installation:
+
+    pip install constant-contact-python
+
 ## Examples:
     from constantcontact import ConstantContact
     cc = ConstantContact('api_key', 'access_token')
