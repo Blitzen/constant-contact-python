@@ -22,6 +22,7 @@ setup(
   description='Python 3 api sdk for constantcontact.com',
   author='Jordan Clark',
   author_email='jordan@blitzen.com',
+  url='https://github.com/Blitzen/constant-contact-python',
   packages=['constantcontact'],
   install_requires=requires,
   license='MIT',
