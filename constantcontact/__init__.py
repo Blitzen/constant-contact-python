@@ -27,6 +27,7 @@ class ConstantContact(object):
   Following url endpoints: https://developer.constantcontact.com/docs/developer-guides/overview-of-api-endpoints.html
   TODO: Implement OAuth2 server flow.  You can get access tokens right now with the requests_ooauthlib library
   Example:
+    from constantcontact import ConstantContact
     cc = ConstantContact('api_key', 'access_token')
     cc.account.info() -> Gets account info /account/info
     cc.contacts() -> Gets the endpoint /contacts
