@@ -28,10 +28,19 @@ class ConstantContact(object):
   TODO: Implement OAuth2 server flow.  You can get access tokens right now with the requests_ooauthlib library
   Example:
     from constantcontact import ConstantContact
+
+    #Create the class instance with an api_key and access_token
     cc = ConstantContact('api_key', 'access_token')
-    cc.account.info() -> Gets account info /account/info
-    cc.contacts() -> Gets the endpoint /contacts
-    cc.contacts(params={'email': 'example@example.com}) -> Search a specific contact with email_address query
+
+    #Gets account info /account/info
+    cc.account.info()
+
+    #Gets the endpoint /contacts
+    cc.contacts()
+
+    #Search a specific contact with email_address query
+    cc.contacts(params={'email': 'example@example.com}) 
+
     data = {'fax': '555-555-5555',
             'first_name': 'Jordan',
             'last_name': 'Clark',
@@ -44,15 +53,22 @@ class ConstantContact(object):
               {'email_address': 'exmaple@example.com'},
               {'email_address': 'example@example2.com'}
             ]}
-    cc.contacts(method='POST', data=data) -> Posts a new contact to /contacts
+
+    #Posts a new contact to /contacts
+    cc.contacts(method='POST', data=data) 
+
     #You can also use a json string (Which is the way constant contact expects the body)
-    #Both will work.
     cc.contacts(method='POST', data=json.dumps(data))
+
     #In order to sub variables, we'll need to have a lookup dictionary.
     variable = {'contactId': 'abcd1234'}
+
     #We can then use this dictionary to sub contactId with the actual id.
-    cc.contacts.contactId(method='PUT', data=data, variable=variable) -> Puts new information to an existing contact /contacts/abcd1234
-    cc.contacts.contactId(method='DELETE', variable=variable) -> Deletes contact /contacts/abcd1234
+    #Puts new information to an existing contact /contacts/abcd1234
+    cc.contacts.contactId(method='PUT', data=data, variable=variable) 
+
+    #Deletes contact /contacts/abcd1234
+    cc.contacts.contactId(method='DELETE', variable=variable) 
   '''
   def __init__(self, api_key, access_token):
     self.api_key = api_key
