@@ -18,20 +18,19 @@ requires = [
 
 setup(
   name='constant-contact-python',
-  version='0.0.1',
+  version='0.0.2',
   description='Api sdk for constantcontact.com',
-  author='Jordan Clark'
+  author='Jordan Clark',
   author_email='jordan@blitzen.com',
   packages=['constantcontact'],
   install_requires=requires,
   license='MIT',
   zip_safe=False,
   classifiers=(
-    'Development Status :: 1 - Alpha',
+    'Development Status :: 3 - Alpha',
     'Intended Audience :: Developers',
     'Natural Language :: English',
-    'License :: MIT',
-    'Programming Language :: Python',
-    'Programming Language :: Python 3.4',
+    'License :: OSI Approved :: MIT License',
+    'Programming Language :: Python :: 3',
   )
 )
