@@ -4,6 +4,8 @@ Jordan Clark
 '''
 
 import requests
+import re
+import json
 BASE_URL = 'https://api.constantcontact.com/v2/'
 
 class ConstantContactError(Exception):
@@ -42,8 +44,14 @@ class ConstantContact(object):
               {'email_address': 'example@example2.com'}
             ]}
     cc.contacts(method='POST', data=data) -> Posts a new contact to /contacts
-    cc.contacts.{contactId}(method='PUT', data=data) -> Puts new information to an existing contact /contacts/{contactId}
-    cc.contacts.{contactId}(method='DELETE') -> Deletes contact /contacts/{contactId}
+    #You can also use a json string (Which is the way constant contact expects the body)
+    #Both will work.
+    cc.contacts(method='POST', data=json.dumps(data))
+    #In order to sub variables, we'll need to have a lookup dictionary.
+    variable = {'contactId': 'abcd1234'}
+    #We can then use this dictionary to sub contactId with the actual id.
+    cc.contacts.contactId(method='PUT', data=data, variable=variable) -> Puts new information to an existing contact /contacts/{contactId}
+    cc.contacts.contactId(method='DELETE', variable=variable) -> Deletes contact /contacts/{contactId}
   '''
   def __init__(self, api_key, access_token):
     self.api_key = api_key
@@ -58,19 +66,24 @@ class ConstantContact(object):
 
   def __call__(self, *args, **kwargs):
     url = BASE_URL + '/'.join(self._attr_path)
+    for variable_name, variable_sub in kwargs.get('variable', {}).items():
+      url = re.sub(variable_name, variable_sub, url)
     self._attr_path = []
     return self._request(url,
                         kwargs.get('data', {}),
                         kwargs.get('method', 'GET'),
                         kwargs.get('params', {}))
 
-  def __getattr__(self, attr):
+  def __getattr__(self, attr, *args, **kwargs):
     self._attr_path.append(attr)
     return self
 
   def _request(self, endpoint, data, method='GET', params = {}):
-    headers = {'Authorization': 'Bearer {}'.format(self.access_token)}
+    headers = {'Authorization': 'Bearer {}'.format(self.access_token),
+              'Content-Type': 'application/json'}
     params['api_key'] = self.api_key
+    if(type(data) == dict):
+      data = json.dumps(data)
     try:
       request = self._request_method[method]
     except KeyError:
@@ -79,4 +92,7 @@ class ConstantContact(object):
                       data=data,
                       params=params, 
                       headers=headers)
-    return response.json()
+    if response.status_code < 400:
+      return response.json()
+    else:
+      response.raise_for_status()

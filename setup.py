@@ -18,8 +18,8 @@ requires = [
 
 setup(
   name='constant-contact-python',
-  version='0.0.2',
-  description='Api sdk for constantcontact.com',
+  version='0.1.0',
+  description='Python 3 api sdk for constantcontact.com',
   author='Jordan Clark',
   author_email='jordan@blitzen.com',
   packages=['constantcontact'],
