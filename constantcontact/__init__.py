@@ -51,8 +51,8 @@ class ConstantContact(object):
     #In order to sub variables, we'll need to have a lookup dictionary.
     variable = {'contactId': 'abcd1234'}
     #We can then use this dictionary to sub contactId with the actual id.
-    cc.contacts.contactId(method='PUT', data=data, variable=variable) -> Puts new information to an existing contact /contacts/{contactId}
-    cc.contacts.contactId(method='DELETE', variable=variable) -> Deletes contact /contacts/{contactId}
+    cc.contacts.contactId(method='PUT', data=data, variable=variable) -> Puts new information to an existing contact /contacts/abcd1234
+    cc.contacts.contactId(method='DELETE', variable=variable) -> Deletes contact /contacts/abcd1234
   '''
   def __init__(self, api_key, access_token):
     self.api_key = api_key
