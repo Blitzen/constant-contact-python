@@ -13,7 +13,7 @@ if sys.argv[-1] == 'publish':
   sys.exit()
 
 requires = [
-  'requests==2.6.0'
+  'requests==2.20.0'
 ]
 
 setup(
